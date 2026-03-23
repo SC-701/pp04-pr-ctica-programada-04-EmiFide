@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'Seguridad/Autorizacion.Middleware/**'
+      - 'Seguridad/**'
   workflow_dispatch:
 
 permissions:
@@ -25,25 +25,25 @@ jobs:
 
       - name: Restaurar dependencias
         run: |
-          cd "Seguridad/Autorizacion.Middleware"
+          cd "Seguridad/"
           dotnet restore
       - name: Compilar en Release
         run: |
-          cd "Seguridad/Autorizacion.Middleware"
+          cd "Seguridad/"
           dotnet build --configuration Release --no-restore
       - name: Cleanup old .nupkg files
         run: |
-          rm -f Seguridad/Autorizacion.Middleware/nupkgs/*.nupkg
+          rm -f Seguridad/*.nupkg
       - name: Empaquetar (dotnet pack)
         run: |
-          cd "Seguridad/Autorizacion.Middleware"
+          cd "Seguridad/"
           dotnet pack --configuration Release --no-build --output ./nupkgs
       - name: Set up NuGet sources
         run: dotnet nuget add source "https://nuget.pkg.github.com/SC-701/index.json" --name "github" --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
 
       - name: Publicar en GitHub Packages
         run: |
-          cd "Seguridad/Autorizacion.Middleware"
+          cd "Seguridad/"
           dotnet nuget push ./nupkgs/*.nupkg \
             --source "https://nuget.pkg.github.com/SC-701/index.json" \
             --api-key ${{ secrets.GITHUB_TOKEN }} \
