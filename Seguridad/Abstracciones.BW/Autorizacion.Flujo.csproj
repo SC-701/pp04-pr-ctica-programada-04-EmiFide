@@ -12,6 +12,8 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
+	
+	
   <ItemGroup>
     <ProjectReference Include="..\Autorizacion.Abstracciones\Autorizacion.Abstracciones.csproj" />
   </ItemGroup>
