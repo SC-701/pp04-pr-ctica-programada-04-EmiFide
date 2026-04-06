@@ -10,7 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text.Json;
 
-namespace Web.Pages.Cuenta
+namespace Web.Pages.Seguridad
 {
     public class LoginModel : PageModel
     {
@@ -72,9 +72,15 @@ namespace Web.Pages.Cuenta
         // Helper: crea la ClaimsIdentity y firma la cookie
         private async Task establecerAutenticacion(List<Claim> claims)
         {
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var identity = new ClaimsIdentity(
+                claims,
+                CookieAuthenticationDefaults.AuthenticationScheme);
+
             var principal = new ClaimsPrincipal(identity);
-            await HttpContext.SignInAsync(principal);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                principal);
         }
     }
 }

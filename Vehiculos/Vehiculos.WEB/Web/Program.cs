@@ -49,11 +49,13 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseRouting();
+
 app.UseAuthentication();    // lee la cookie llena HttpContext.User
 app.AutorizacionClaims();   // agrega claims de rol desde BD de seguridad
 app.UseAuthorization();     // verifica [Authorize]
 
-app.UseRouting();
+
 app.MapRazorPages(); 
 
 app.Run();
